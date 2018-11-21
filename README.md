@@ -94,3 +94,12 @@ To run the tests of `API`, you need to go to the directory `guardian_api`, and r
 ```
 python3 -m pytest tests
 ```
+
+## API Documentation
+
+In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `UPDATE`, `DELETE`). Only data retrieval (`GET`) is possible through few endpoints. 
+
+- URL
+`/articles`
+- Methods
+`GET`
