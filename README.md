@@ -101,8 +101,8 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
 
 - URL
 
-`/articles`
+  `/articles`
 
 - Methods
 
-`GET`
+  `GET`
