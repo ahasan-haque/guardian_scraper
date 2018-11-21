@@ -111,4 +111,14 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
 
   #### optional
   
-  keyword=[alphanumeric]
+  `keyword=[alphanumeric]`
+    
+   Provides a keyword based search on the whole list of articles. If not provided, the article list is served (paginated) 
+   
+   `offset=[int]`
+   
+   Works as pagination offset. 0 is considered as value when not provided. 
+   
+   `limit[int]`
+   
+   Works as pagination page size. 10 is default when not provided.
