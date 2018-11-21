@@ -106,3 +106,9 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
 - Methods
 
   `GET`
+
+- URL Params
+
+  #### optional
+  
+  keyword=[alphanumeric]
