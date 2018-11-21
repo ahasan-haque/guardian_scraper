@@ -1,5 +1,7 @@
 import scrapy
 from datetime import timedelta, datetime
+from scrapy.loader import ItemLoader
+from guardian.items import GuardianItem
 
 
 class GuardianSpider(scrapy.Spider):
@@ -41,6 +43,7 @@ class GuardianSpider(scrapy.Spider):
 
                         # HTTP request to load a subcategory page of a particular date
                         # response is passed to `fetch_news_url` callback
+                        # some fields are passed via meta for later usage
                         yield scrapy.Request(
                             response.urljoin(news_url),
                             callback=self.fetch_news_url,
@@ -65,6 +68,7 @@ class GuardianSpider(scrapy.Spider):
         news_links = response.xpath('//div[@class="fc-item__container"]/a/@href').extract()
 
         # Iterate over news links and send HTTP request to download them
+        # meta dict bypassed to next callback
         # Response is handled by `fetch_news_attributes` method
         for news_link in news_links:
             yield scrapy.Request(
@@ -73,5 +77,22 @@ class GuardianSpider(scrapy.Spider):
                 meta=response.meta
             )
 
-    def fetch_news_attributes(self):
-        pass
+    def fetch_news_attributes(self, response):
+        # attributes of meta dict is retrieved
+        category = response.meta.get('category', '')
+        sub_category = response.meta.get('sub_category', '')
+        creation_date = response.meta.get('date', '')
+
+        # targeted fields are retrieved and passed to itemloader
+        item_loader = ItemLoader(item=GuardianItem(), response=response)
+
+        item_loader.add_xpath('headline', '//h1[contains(@class, "content__headline")]//text()')
+        item_loader.add_xpath('author', '//a[@rel="author"]/span/text()')
+        item_loader.add_xpath('content',
+                              '//div[contains(@class, "content__article-body")]//p[not(contains(@class, "Tweet-text"))]')
+        item_loader.add_value('category', category)
+        item_loader.add_value('sub_category', sub_category)
+        item_loader.add_value('url', response.url)
+        item_loader.add_value('creation_date', creation_date)
+
+        yield item_loader.load_item()
