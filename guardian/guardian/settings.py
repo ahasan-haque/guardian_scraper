@@ -9,6 +9,8 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
+import os
+
 BOT_NAME = 'guardian'
 
 SPIDER_MODULES = ['guardian.spiders']
@@ -90,3 +92,16 @@ COOKIES_ENABLED = False
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 FEED_EXPORT_ENCODING = 'utf-8'
+
+# MongoURI is choosen dynamically based on an environment variable
+# added to ~/.bashrc
+# This ensures both local and production env use db accordingly with same code
+
+env = os.getenv("ENV", "PROD")
+
+if env == "DEV":
+    MONGO_URI = "mongodb://127.0.0.1:27017"
+else:
+    MONGO_URI = "mongodb://ahasan:ahsanul08@portal-ssl722-0.affable-mongodb-46.794609107.composedb.com:16816,portal-ssl830-1.affable-mongodb-46.794609107.composedb.com:16816/compose?authSource=admin&ssl=true"
+
+MONGO_DATABASE = 'guardian'
