@@ -122,3 +122,17 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
    `limit[int]`
    
    Works as pagination page size. 10 is default when not provided.
+   
+- #### Success Response:
+    
+    * #### Code: `200
+      #### Content : 
+      
+      ```
+      {
+        "articles": [
+      {"url": "https://www.theguardian.com/world/2018/oct/07/haiti-hit-by-59-magnitude-earthquake-causing-injuries-and-building-damage", "content": "An earthquake that struck off .....", "sub_category": "World news", "category": "News", "creation_date": "2018-10-07", "id": "0a202ac6ea81550e0f0f6"}], 
+      "previous_url": "http://host/path?keyword=haiti&offset=0&limit=5",
+      "next_url": "http://host/path?keyword=haiti&offset=10&limit=5" ]
+      
+      ```` 
