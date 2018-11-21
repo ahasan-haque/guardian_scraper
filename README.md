@@ -100,6 +100,9 @@ python3 -m pytest tests
 In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `UPDATE`, `DELETE`). Only data retrieval (`GET`) is possible through few endpoints. 
 
 - URL
+
 `/articles`
+
 - Methods
+
 `GET`
