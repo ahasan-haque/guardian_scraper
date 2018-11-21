@@ -5,7 +5,9 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import random
 from scrapy import signals
+from scrapy.conf import settings
 
 
 class GuardianSpiderMiddleware(object):
@@ -54,3 +56,21 @@ class GuardianSpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class RandomUserAgentMiddleware(object):
+    """
+    A random user-agent is picked from a list of agent to fake this header.
+    """
+    def process_request(self, request, spider):
+        user_agent = random.choice(settings.get('USER_AGENT_LIST'))
+        if user_agent:
+            request.headers.setdefault('User-Agent', user_agent)
+
+
+class ProxyMiddleware(object):
+    """
+    Sets a proxy for anonymous crawling.
+    """
+    def process_request(self, request, spider):
+        request.meta['proxy'] = settings.get('HTTP_PROXY')
