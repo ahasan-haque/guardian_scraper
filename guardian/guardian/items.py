@@ -4,10 +4,33 @@ from w3lib.html import remove_tags
 
 
 class GuardianItem(scrapy.Item):
-    headline = scrapy.Field()
-    author = scrapy.Field()
-    content = scrapy.Field()
-    category = scrapy.Field()
-    sub_category = scrapy.Field()
-    url = scrapy.Field()
-    creation_date = scrapy.Field()
+    """
+    Fields passed from spider are pre/postprocessed here
+    """
+    headline = scrapy.Field(
+        input_processor=MapCompose(str.strip),
+        output_processor=TakeFirst()
+    )
+    author = scrapy.Field(
+        input_processor=MapCompose(str.strip),
+        output_processor=TakeFirst()
+    )
+    content = scrapy.Field(
+        input_processor=MapCompose(remove_tags),
+        output_processor=Join('\n')
+    )
+    category = scrapy.Field(
+        input_processor=MapCompose(str.strip),
+        output_processor=TakeFirst()
+    )
+    sub_category = scrapy.Field(
+        input_processor=MapCompose(str.strip),
+        output_processor=TakeFirst()
+    )
+    url = scrapy.Field(
+        output_processor=TakeFirst()
+    )
+    creation_date = scrapy.Field(
+        input_processor = MapCompose(lambda x: x.strftime('%Y-%m-%d')),
+        output_processor=TakeFirst()
+    )
