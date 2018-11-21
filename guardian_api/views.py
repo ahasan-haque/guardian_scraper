@@ -1,5 +1,6 @@
 from conf import services
-from utils import evaluate_query_param
+import utils
+import bson
 from bson import ObjectId
 from flask import request
 from flask_restful import Resource, reqparse
@@ -14,11 +15,17 @@ class ArticleByID(Resource):
     """
     Retrieve Single article by ID
     """
+    article_db = services.mongo.guardian.news
+
     def get(self, article_id):
-        article_db = services.mongo.guardian.news
+
+        try:
+            article_id = ObjectId(article_id)
+        except bson.errors.InvalidId:
+            return {}, 404
 
         # not exposing `keyword` field as it's for internal queries
-        article = article_db.find_one(
+        article = self.article_db.find_one(
             {
                 '_id': ObjectId(article_id)
             },
@@ -36,7 +43,7 @@ class ArticlesByKeyword(Resource):
     Retrive Articles by keyword
 
     """
-
+    article_db = services.mongo.guardian.news
     parser = reqparse.RequestParser()
     parser.add_argument('keyword', type=str, default='')
 
@@ -61,11 +68,13 @@ class ArticlesByKeyword(Resource):
         search_criteria = query_params
 
         response = self.perform_query(offset, limit, search_criteria)
-        return response, 200
+        if response:
+            return response, 200
+        else:
+            return response, 404
 
     def perform_query(self, offset, page_size, search_criteria):
-        article_db = services.mongo.guardian.news
-        cursor = article_db.find(
+        cursor = self.article_db.find(
             search_criteria,
             {
                 'keyword': 0,
@@ -99,7 +108,7 @@ class ArticlesByKeyword(Resource):
                 'offset': previous_offset,
                 'limit': page_size
             })
-            response['previous_page'] = '{}?{}'.format(request.base_url,evaluate_query_param(param_dict))
+            response['previous_page'] = '{}?{}'.format(request.base_url, utils.evaluate_query_param(param_dict))
 
         if next_offset < document_count:
             param_dict = dict(search_criteria)
@@ -107,6 +116,6 @@ class ArticlesByKeyword(Resource):
                 'offset': next_offset,
                 'limit': page_size
             })
-            response['next_page'] = '{}?{}'.format(request.base_url,evaluate_query_param(param_dict))
+            response['next_page'] = '{}?{}'.format(request.base_url, utils.evaluate_query_param(param_dict))
 
         return response
