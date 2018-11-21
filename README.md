@@ -85,3 +85,12 @@ As described above, based on `ENV` set or not, the database, port and running mo
 So, if you run in production, you might need to add `sudo` with the command, as the production app run on port `80`.
 
 At local deployment however, the app will be visible at http://localhost:5000
+
+
+## Testing
+
+To run the tests of `API`, you need to go to the directory `guardian_api`, and run:
+
+```
+python3 -m pytest tests
+```
