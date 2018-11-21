@@ -114,6 +114,6 @@ env = os.getenv("ENV", "PROD")
 if env == "DEV":
     MONGO_URI = "mongodb://127.0.0.1:27017"
 else:
-    MONGO_URI = "mongodb://ahasan:ahsanul08@portal-ssl722-0.affable-mongodb-46.794609107.composedb.com:16816,portal-ssl830-1.affable-mongodb-46.794609107.composedb.com:16816/compose?authSource=admin&ssl=true"
+    MONGO_URI = "mongodb://<username>:<password>@portal-ssl722-0.affable-mongodb-46.794609107.composedb.com:16816,portal-ssl830-1.affable-mongodb-46.794609107.composedb.com:16816/compose?authSource=admin&ssl=true"
 
 MONGO_DATABASE = 'guardian'
