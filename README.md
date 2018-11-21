@@ -83,3 +83,5 @@ python run.py
 As described above, based on `ENV` set or not, the database, port and running mode will be adjusted. 
 
 So, if you run in production, you might need to add `sudo` with the command, as the production app run on port `80`.
+
+At local deployment however, the app will be visible at http://localhost:5000
