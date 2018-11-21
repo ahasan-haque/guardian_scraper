@@ -40,7 +40,7 @@ class GuardianSpider(scrapy.Spider):
                         news_url = "{}/{}/all".format(sub_category_url, formatted_date)
 
                         # HTTP request to load a subcategory page of a particular date
-                        # response is passed to fetch_news_url callback
+                        # response is passed to `fetch_news_url` callback
                         yield scrapy.Request(
                             response.urljoin(news_url),
                             callback=self.fetch_news_url,
@@ -61,4 +61,17 @@ class GuardianSpider(scrapy.Spider):
                         self.num_of_days = self.crawl_day_count
 
     def fetch_news_url(self, response):
+        # Retrieve all news link of the response page
+        news_links = response.xpath('//div[@class="fc-item__container"]/a/@href').extract()
+
+        # Iterate over news links and send HTTP request to download them
+        # Response is handled by `fetch_news_attributes` method
+        for news_link in news_links:
+            yield scrapy.Request(
+                response.urljoin(news_link),
+                callback=self.fetch_news_attributes,
+                meta=response.meta
+            )
+
+    def fetch_news_attributes(self):
         pass
