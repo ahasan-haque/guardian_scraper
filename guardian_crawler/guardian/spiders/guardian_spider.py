@@ -17,6 +17,15 @@ class GuardianSpider(scrapy.Spider):
         self.num_of_days = self.crawl_day_count = int(num_of_days)
 
     def parse(self, response):
+        """
+        This function parses the reponse of baseURL and extracts category links of a day from it
+
+        @url https://www.theguardian.com/au
+        @returns items 0 0
+        @returns requests 2
+        :param response:
+        :return:
+        """
         # Searching for primary categories/tabs in guardian online
         primary_tabs = response.xpath(
             '//ul[@class="menu-group menu-group--primary"]/li[@class="menu-item js-navigation-item"]')
@@ -64,6 +73,16 @@ class GuardianSpider(scrapy.Spider):
                         self.num_of_days = self.crawl_day_count
 
     def fetch_news_url(self, response):
+        """
+        This function takes a per-day sub-category link and extracts and requests news links
+
+        @url https://www.theguardian.com/world/2018/jun/15/
+        @returns items 0 0
+        @returns requests 1
+
+        :param response:
+        :return:
+        """
         # Retrieve all news link of the response page
         news_links = response.xpath('//div[@class="fc-item__container"]/a/@href').extract()
 
@@ -78,10 +97,23 @@ class GuardianSpider(scrapy.Spider):
             )
 
     def fetch_news_attributes(self, response):
+        """
+        This takes a news link and extracts targeted items from it.
+
+        @url https://www.theguardian.com/world/2018/nov/22/saudi-crown-prince-mohammed-bin-salman
+        @returns items 1 1
+        @returns requests 0 0
+        @scrapes headline author content url
+
+        category, sub_category and creation_date can't be checked as they are sent from meta
+        :param response:
+        :return:
+        """
         # attributes of meta dict is retrieved
         category = response.meta.get('category', '')
         sub_category = response.meta.get('sub_category', '')
-        creation_date = response.meta.get('date', '')
+        # date is converted from datetime object to string
+        creation_date = response.meta.get('date', '').strftime('%Y-%m-%d')
 
         # targeted fields are retrieved and passed to itemloader
         item_loader = ItemLoader(item=GuardianItem(), response=response)
