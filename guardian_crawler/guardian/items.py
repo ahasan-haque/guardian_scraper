@@ -1,4 +1,5 @@
 import scrapy
+from datetime import datetime
 from scrapy.loader.processors import MapCompose, TakeFirst, Join
 from w3lib.html import remove_tags
 
@@ -31,6 +32,5 @@ class GuardianItem(scrapy.Item):
         output_processor=TakeFirst()
     )
     creation_date = scrapy.Field(
-        input_processor = MapCompose(lambda x: x.strftime('%Y-%m-%d')),
         output_processor=TakeFirst()
     )
