@@ -151,7 +151,7 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
       
 - #### Sample Requests:
           
-      ```
+     ```
         # To get articles having trump keyword
         curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/articles?keyword=trump
         # To get all the articles (with pagination) in DB
@@ -159,5 +159,5 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
         # To get a specific page of articles in DB
         curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/articles?offset=10&limit=10
         # To get a specific page of article about trump in DB
-        curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/articles?keyword=trump&offset=10&limit=10               ``` 
+        curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/articles?keyword=trump&offset=10&limit=10              ``` 
 
