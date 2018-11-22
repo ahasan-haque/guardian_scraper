@@ -158,7 +158,7 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
           }
         ], 
         "previous_url": "http://host/path?keyword=haiti&offset=0&limit=5",
-        "next_url": "http://host/path?keyword=haiti&offset=10&limit=5" ]
+        "next_url": "http://host/path?keyword=haiti&offset=10&limit=5"
       }
       ```` 
       Pagination URLs are served as `previous_url` and `next_url`.
@@ -230,3 +230,13 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
         # To get a specific article
         curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/article/5bf55014ac6ea81550e103a6
      ``` 
+
+## Limitations
+
+-  Though the API provides certail fields to use as filter, only `keyword` field is indexed (As that was the priority), so other filters should be a bit slower. Idially, using elasticsearch would perform better, as keys are indexed there.
+-  The search by `keyword`, by no means a full text search, rather as the name suggests a single keyword search.
+-  Pagination could be implemented better rather than just immediate next and previous page.
+-  No HTTP verbs other than `GET` is allowed, no state change of the server.
+-  Search Fields like `author`, `category` could be normalized to have a better search, rather than an exact match. But left as lower priority.   
+  
+
