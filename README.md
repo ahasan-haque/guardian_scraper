@@ -99,7 +99,7 @@ python3 -m pytest tests
 
 In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `UPDATE`, `DELETE`). Only data retrieval (`GET`) is possible through few endpoints. 
 
-### URL
+### URL (Retrieval of collection of Articles)
 
   `/articles`
 
@@ -161,3 +161,39 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
         # To get a specific page of article about trump in DB
         curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/articles?keyword=trump&offset=10&limit=10              ``` 
 
+### URL (Retrieve a specific article by Article ID)
+
+  `/articles/<article_id>`
+
+- #### Methods
+
+  `GET`
+
+- #### URL Params
+
+      NO
+      
+- #### Success Response:
+    
+    * #### Code: 200
+      #### Content : 
+      
+      ```
+      {"url": "https://www.theguardian.com/money/2018/oct/05/thames-water-meter-refuse", "content": "Thames Water is insisting we have a meter. Can we refuse? ...", "headline": "Can I say no to a water meter?", "author": "Anna Tims", "sub_category": "Money", "category": "Lifestyle", "creation_date": "2018-10-05", "id": "5bf55014ac6ea81550e103a6"}
+      ````       
+      
+- #### Error Response:
+    
+    * #### Code: 404
+      #### Content : 
+      
+      ```
+      {}      
+      ``` 
+      
+- #### Sample Request:
+          
+     ```
+        # To get a specific article
+        curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/article/5bf55014ac6ea81550e103a6
+     ``` 
