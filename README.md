@@ -95,6 +95,14 @@ To run the tests of `API`, you need to go to the directory `guardian_api`, and r
 python3 -m pytest tests
 ```
 
+For the scraper, the common testing methodology is to serve an offline page and check the parser against it. However, scrapy provides a testing utility called `scrapy contracts`, which is used in our crawler project. 
+
+To run this, you need to go to the directory `guardian_crawler`, and run:
+
+```
+scrapy check
+```
+
 ## API Documentation
 
 In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `UPDATE`, `DELETE`). Only data retrieval (`GET`) is possible through few endpoints. 
