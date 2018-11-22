@@ -47,7 +47,11 @@ def test_articles_endpoint_with_keyword():
     parser_object.parse_args.return_value = {
         "offset": 1,
         "limit": 2,
-        "keyword": " ThreE "
+        "keyword": " ThreE ",
+        "author": "",
+        "category": "",
+        "sub-category": "",
+        "date": ""
     }
     request_object.parser = parser_object
 
@@ -69,7 +73,11 @@ def test_articles_endpoint_without_keyword():
     parser_object.parse_args.return_value = {
         "offset": 1,
         "limit": 2,
-        "keyword": ""
+        "keyword": "",
+        "author": "",
+        "category": "",
+        "sub-category": "",
+        "date": ""
     }
     request_object.parser = parser_object
 
