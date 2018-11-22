@@ -2,13 +2,9 @@ from conf import services
 import utils
 import bson
 from bson import ObjectId
+from datetime import datetime
 from flask import request
 from flask_restful import Resource, reqparse
-from nltk import SnowballStemmer
-from nltk.corpus import stopwords
-
-stemmer = SnowballStemmer('english')
-stop_words = stopwords.words('english')
 
 
 class ArticleByID(Resource):
@@ -46,7 +42,10 @@ class ArticlesByKeyword(Resource):
     article_db = services.mongo.guardian.news
     parser = reqparse.RequestParser()
     parser.add_argument('keyword', type=str, default='')
-
+    parser.add_argument('category', type=str, default='')
+    parser.add_argument('sub-category', type=str, default='')
+    parser.add_argument('date', type=str, default='')
+    parser.add_argument('author', type=str, default='')
     # can optionally pass `limit` and `offset`
     # To customize pagination parameters
     parser.add_argument('limit', type=int, default=10)
@@ -54,15 +53,7 @@ class ArticlesByKeyword(Resource):
 
     def get(self):
         query_params = self.parser.parse_args()
-        offset = query_params.pop('offset')
-        limit = query_params.pop('limit')
-
-        keyword = query_params.pop('keyword').strip().lower()
-
-        if keyword:
-            # Stemming the keyword, as keywords saved in db also stemmed
-            query_params['keyword'] = stemmer.stem(keyword)
-
+        offset, limit, query_params = utils.pre_process_fields(query_params)
         # Taking query_params as search criteria (except limit and offset)
         # This way a single endpoint can handle multiple field to filter
         search_criteria = query_params
@@ -100,6 +91,10 @@ class ArticlesByKeyword(Resource):
 
         response = {'articles': data}
 
+        # workaround due to naming conflict in query param and db
+
+        search_criteria = utils.post_process_fields(search_criteria)
+
         if previous_offset > 0:
             # param_dict is formed to dynamically build the query param part
             # of the pagination URLs
@@ -119,3 +114,4 @@ class ArticlesByKeyword(Resource):
             response['next_page'] = '{}?{}'.format(request.base_url, utils.evaluate_query_param(param_dict))
 
         return response
+
