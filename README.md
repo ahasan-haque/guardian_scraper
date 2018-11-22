@@ -179,8 +179,17 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
       #### Content : 
       
       ```
-      {"url": "https://www.theguardian.com/money/2018/oct/05/thames-water-meter-refuse", "content": "Thames Water is insisting we have a meter. Can we refuse? ...", "headline": "Can I say no to a water meter?", "author": "Anna Tims", "sub_category": "Money", "category": "Lifestyle", "creation_date": "2018-10-05", "id": "5bf55014ac6ea81550e103a6"}
-      ````       
+       {
+         "url": "https://www.theguardian.com/money/2018/oct/05/thames-water-meter-refuse", 
+         "content": "Thames Water is insisting we have a meter. Can we refuse? ...", 
+         "headline": "Can I say no to a water meter?", 
+         "author": "Anna Tims", 
+         "sub_category": "Money", 
+         "category": "Lifestyle", 
+         "creation_date": "2018-10-05", 
+         "id": "5bf55014ac6ea81550e103a6"
+       }
+      ```       
       
 - #### Error Response:
     
@@ -188,12 +197,12 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
       #### Content : 
       
       ```
-      {}      
+       {}      
       ``` 
       
 - #### Sample Request:
           
-     ```
+      ```
         # To get a specific article
         curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/article/5bf55014ac6ea81550e103a6
-     ``` 
+      ``` 
