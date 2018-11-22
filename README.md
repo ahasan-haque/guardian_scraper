@@ -114,7 +114,24 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
   `keyword=[alphanumeric]`
     
    Provides a keyword based search on the whole list of articles. If not provided, the article list is served (paginated) 
-   
+
+  `date=[alphanumeric]`
+    
+   Provides articles of a specific date. If not provided (or invalid value), the filter isn't considered.  
+
+  `category=[alphanumeric]`
+    
+   Provides articles of a specific category. If not provided (or invalid value), the filter isn't considered.  
+
+  `sub-category=[alphanumeric]`
+    
+   Provides articles of a specific sub-category. If not provided (or invalid value), the filter isn't considered.  
+
+  `author=[alphanumeric]`
+    
+   Provides articles of a specific author. If not provided (or invalid value), the filter isn't considered.  
+
+
    `offset=[int]`
    
    Works as pagination offset. 0 is considered as value when not provided. 
