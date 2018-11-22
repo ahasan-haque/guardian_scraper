@@ -170,7 +170,7 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
 
 ### URL (Retrieve a specific article by Article ID)
 
-  `/articles/<article_id>`
+  `/article/<article_id>`
 
 - #### Methods
 
