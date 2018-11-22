@@ -131,10 +131,17 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
       ```
       {
         "articles": [
-      {"url": "https://www.theguardian.com/world/2018/oct/07/haiti-hit-by-59-magnitude-earthquake-causing-injuries-and-building-damage", "content": "An earthquake that struck off .....", "sub_category": "World news", "category": "News", "creation_date": "2018-10-07", "id": "0a202ac6ea81550e0f0f6"}
-      ], 
-      "previous_url": "http://host/path?keyword=haiti&offset=0&limit=5",
-      "next_url": "http://host/path?keyword=haiti&offset=10&limit=5" ]
+          {
+            "url": "https://www.theguardian.com/world/2018/oct/07/haiti-hit-by-59-magnitude-earthquake-causing-injuries-and-building-damage", 
+            "content": "An earthquake that struck off .....", 
+            "sub_category": "World news", 
+            "category": "News", 
+            "creation_date": "2018-10-07", 
+            "id": "0a202ac6ea81550e0f0f6"
+          }
+        ], 
+        "previous_url": "http://host/path?keyword=haiti&offset=0&limit=5",
+        "next_url": "http://host/path?keyword=haiti&offset=10&limit=5" ]
       }
       ```` 
       Pagination URLs are served as `previous_url` and `next_url`.
@@ -202,7 +209,7 @@ In this API, no addition/modification/deletion is not allowed (`POST`, `PUT`, `U
       
 - #### Sample Request:
           
-      ```
+     ```
         # To get a specific article
         curl -XGET http://ec2-34-245-40-21.eu-west-1.compute.amazonaws.com/article/5bf55014ac6ea81550e103a6
-      ``` 
+     ``` 
