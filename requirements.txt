@@ -20,7 +20,7 @@ idna==2.5
 incremental==16.10.1
 ipaddress==1.0.18
 itsdangerous==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 lxml==3.7.3
 MarkupSafe==1.1.0
 more-itertools==4.3.0
