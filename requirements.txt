@@ -13,7 +13,7 @@ cryptography==2.4.1
 cssselect==1.0.1
 enum34==1.1.6
 Flask==0.12.2
-Flask-Cors==3.0.6
+Flask-Cors==3.0.9
 Flask-JWT-Extended==3.7.2
 Flask-RESTful==0.3.6
 idna==2.5
